@@ -1,6 +1,7 @@
 import re
-
-LastDayofMonth = (0,31,28,31,30,31,30,31,31,30,31,30,31)
+from datetime import datetime
+from time import mktime
+#import time
 
 def decode_filename(fn):
     """Parse a filename for a string of numbers and translate to a date
@@ -20,6 +21,8 @@ def decode_filename(fn):
     2. Add functionality to assign Quarters
 
     """
+    LastDayofMonth = (0,31,28,31,30,31,30,31,31,30,31,30,31)
+
     s = 0.0
     ds = re.findall(r'\d+', fn)
     if ds != []:
@@ -40,7 +43,7 @@ def decode_filename(fn):
             #print ('Last day of the month is the ' + str(LastDayofMonth[int(mo)]))
             dt = datetime(yri,int(mo),LastDayofMonth[int(mo)])
             #print(dt)
-            s = time.mktime(dt.timetuple())
+            s = mktime(dt.timetuple())
             #print(s)
             #print(datetime.fromtimestamp(s).strftime('%y%m%d'))
         elif len(x) == 6:
@@ -50,7 +53,7 @@ def decode_filename(fn):
             #print('Last day of the month is the ' + str(LastDayofMonth[int(mo)]))
             dt = datetime(yri,int(mo),int(da))
             #print(dt)
-            s = time.mktime(dt.timetuple())
+            s = mktime(dt.timetuple())
             #print(s)
             #print(datetime.fromtimestamp(s).strftime('%y%m%d'))
         else:
